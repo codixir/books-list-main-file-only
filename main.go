@@ -42,7 +42,14 @@ func getBooks(w http.ResponseWriter, r *http.Request) {
 }
 
 func getBook(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Gets a single the book by its id")
+	params := mux.Vars(r)
+	fmt.Println(params)
+
+	for _, book := range books {
+		if book.ID == params["id"] {
+			json.NewEncoder(w).Encode(&book)
+		}
+	}
 }
 
 func addBook(w http.ResponseWriter, r *http.Request) {
